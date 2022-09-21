@@ -68,7 +68,29 @@ string Node<string>::getLocation() {
 
 // setters definitions
 
+template <class DT>
+void Node<DT>::setNodeInfo(string newInfo, DT newYearCreated, string newLoc) {
+    nodeInfo = newInfo;
+    yearCreated = newYearCreated;
+    location = newLoc;
+}
 
+void Node<void>::setNodeNumber(int newNum) {
+    nodeNumber = newNum;
+}
+
+template <class DT>
+void Node<DT>::setYearCreated(DT newYearCreated) {
+    yearCreated = newYearCreated;
+}
+
+void Node<void>::setLocation(string newLocation) {
+    location = newLocation;
+}
+
+void Node<void>::display() {
+    cout << nodeNumber << ": " << getNodeInfo << endl;
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
