@@ -68,6 +68,7 @@ string Node<string>::getLocation() {
 
 // setters definitions
 
+
 template <class DT>
 void Node<DT>::setNodeInfo(string newInfo, DT newYearCreated, string newLoc) {
     nodeInfo = newInfo;
@@ -75,7 +76,8 @@ void Node<DT>::setNodeInfo(string newInfo, DT newYearCreated, string newLoc) {
     location = newLoc;
 }
 
-void Node<void>::setNodeNumber(int newNum) {
+template <class DT>
+void Node<DT>::setNodeNumber(int newNum) {
     nodeNumber = newNum;
 }
 
@@ -84,12 +86,14 @@ void Node<DT>::setYearCreated(DT newYearCreated) {
     yearCreated = newYearCreated;
 }
 
-void Node<void>::setLocation(string newLocation) {
+template <class DT>
+void Node<DT>::setLocation(string newLocation) {
     location = newLocation;
 }
 
-void Node<void>::display() {
-    cout << nodeNumber << ": " << getNodeInfo << endl;
+template <class DT>
+void Node<DT>::display() {
+    cout << getNodeNumber() << ": " << getNodeInfo() << endl;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,7 +134,7 @@ template <class DT>
 class GraphDB
 {
     // TODO: ostream operator for displaying myNodes and myEdges
-    friend ostream& operator<< (ostream& s, const <DT> arr);
+    //friend ostream& operator<< (ostream& s, const <DT> arr);
 protected:
     Node<DT>* myNodes; // array of nodes
     Edge<DT>* myEdges; // array of edges
