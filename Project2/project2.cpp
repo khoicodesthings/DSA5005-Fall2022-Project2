@@ -37,11 +37,17 @@ public:
     ~Node(); // destructor
 };
 
+// function definitions
+
+// constructor
+
 template <class DT>
 Node<DT>::Node() {
     nodeNumber = -1;
     nodeInfo = "";
 }
+
+// getters definitions
 
 string Node<string>::getNodeInfo() {
     return nodeInfo;
@@ -51,6 +57,7 @@ int Node<int>::getNodeNumber() {
     return nodeNumber;
 }
 
+template <class DT>
 DT Node<DT>::getYearCreated() {
     return getYearCreated;
 }
@@ -58,6 +65,10 @@ DT Node<DT>::getYearCreated() {
 string Node<string>::getLocation() {
     return location;
 }
+
+// setters definitions
+
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
