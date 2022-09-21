@@ -169,6 +169,31 @@ DT Edge<DT>::getYearsKnown() {
     return yearsKnown;
 }
 
+// setters
+
+template <class DT>
+void Edge<DT>::setu(Node<DT>* newu) {
+    u = newu;
+}
+
+template <class DT>
+void Edge<DT>::setv(Node<DT>* newv) {
+    v = newv;
+}
+
+template <class DT>
+void Edge<DT>::setEdgeInfo(string newInfo, DT newYearsKnown) {
+     edgeInfo = newInfo;
+     yearsKnown = newYearsKnown;
+}
+
+template <class DT>
+void Edge<DT>::setYearsKnown(DT newYear) {
+    yearsKnown = newYear;
+}
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // class to store the graph
