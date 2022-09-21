@@ -167,6 +167,17 @@ int main()
 {
 
     // you can start with the same main function from project 1
+    int numNodes;
+    int maxEdges;
+
+    cin >> numNodes >> maxEdges;
+
+    cout << "numNodes: " << numNodes << endl;
+    cout << "maxEdges: " << maxEdges << endl;
+
+
+
+    
 
     return 0;
 }
