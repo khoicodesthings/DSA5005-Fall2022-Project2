@@ -37,6 +37,28 @@ public:
     ~Node(); // destructor
 };
 
+template <class DT>
+Node<DT>::Node() {
+    nodeNumber = -1;
+    nodeInfo = "";
+}
+
+string Node<string>::getNodeInfo() {
+    return nodeInfo;
+}
+
+int Node<int>::getNodeNumber() {
+    return nodeNumber;
+}
+
+DT Node<DT>::getYearCreated() {
+    return getYearCreated;
+}
+
+string Node<string>::getLocation() {
+    return location;
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // class to store one edge's details
