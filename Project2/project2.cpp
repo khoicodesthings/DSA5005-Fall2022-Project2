@@ -134,6 +134,41 @@ public:
     ~Edge(); // destructor
 };
 
+
+// function definitions
+
+// constructor
+
+template <class DT>
+Edge<DT>::Edge() {
+    u = NULL;
+    v = NULL;
+    edgeInfo = "";
+    yearsKnown = NULL;
+}
+
+// getters
+
+template <class DT>
+Node<DT>* Edge<DT>::getu() {
+    return *u;
+}
+
+template <class DT>
+Node<DT>* Edge<DT>::getv() {
+    return *v;
+}
+
+template <class DT>
+string Edge<DT>::getEdgeInfo() {
+    return edgeInfo;
+}
+
+template <class DT>
+DT Edge<DT>::getYearsKnown() {
+    return yearsKnown;
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // class to store the graph
