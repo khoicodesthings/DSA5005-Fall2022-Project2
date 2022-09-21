@@ -96,6 +96,13 @@ void Node<DT>::display() {
     cout << getNodeNumber() << ": " << getNodeInfo() << endl;
 }
 
+// Destructor
+
+template <class DT>
+Node<DT>::~Node() {
+    // Destructor stub
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // class to store one edge's details
