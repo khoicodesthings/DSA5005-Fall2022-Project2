@@ -93,7 +93,7 @@ void Node<DT>::setLocation(string newLocation) {
 
 template <class DT>
 void Node<DT>::display() {
-    cout << getNodeNumber() << ": " << getNodeInfo() << endl;
+    cout << getNodeNumber() << ": " << getNodeInfo() << ", " << getYearCreated() << ", " << getLocation() << endl;
 }
 
 // Destructor
@@ -183,8 +183,8 @@ void Edge<DT>::setv(Node<DT>* newv) {
 
 template <class DT>
 void Edge<DT>::setEdgeInfo(string newInfo, DT newYearsKnown) {
-     edgeInfo = newInfo;
-     yearsKnown = newYearsKnown;
+    edgeInfo = newInfo;
+    yearsKnown = newYearsKnown;
 }
 
 template <class DT>
@@ -281,9 +281,18 @@ int main()
     cout << "numNodes: " << numNodes << endl;
     cout << "maxEdges: " << maxEdges << endl;
 
+    Node<int>* test = new Node<int>();
 
+    int nodeNum = 0;
+    string nodeInfo = "Harry";
+    string nodeLocation = "London";
+    int year = 1051994;
 
-    
+    test->setNodeNumber(nodeNum);
+    test->setNodeInfo(nodeInfo, year, nodeLocation);
+
+    //test->display();
+
 
     return 0;
 }
