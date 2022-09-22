@@ -196,7 +196,7 @@ void Edge<DT>::setYearsKnown(DT newYear) {
 
 template <class DT>
 void Edge<DT>::display() {
-    cout << u->getNodeInfo() << " - " << v->getNodeInfo() << " " << getEdgeInfo() << ", " << yearsKnown;
+    cout << u->getNodeInfo() << " - " << v->getNodeInfo() << " " << getEdgeInfo() << ", " << yearsKnown << endl;
 }
 
 template <class DT>
