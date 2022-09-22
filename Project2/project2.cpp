@@ -243,6 +243,30 @@ public:
     ~GraphDB(); // destructor
 };
 
+// constructor
+
+template <class DT>
+GraphDB<DT>::GraphDB(int nNodes, int nEdges) {
+    numNodes = nNodes;
+    maxEdges = nEdges;
+    numEdges = 0;
+    myNodes = new Node<int>[numNodes];
+    myEdges = new Edge<int>[maxEdges];
+}
+
+// setters 
+
+template <class DT>
+void GraphDB<DT>::setNode(Node<DT>& newNode) {
+    int newNodeNum = newNode.getNodeNumber();
+    string newNodeInfo = newNode.getNodeInfo();
+    DT nodeYear = newNode.getYearCreated();
+    string nodeLocation = newNode.getLocation;
+    // Set to Node at newNodeNum
+    myNodes[newNodeNum].setNodeNumber[newNodeNum];
+    myNodes[newNodeNum].setNodeInfo(newNodeInfo, nodeYear, nodeLocation);
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main()
