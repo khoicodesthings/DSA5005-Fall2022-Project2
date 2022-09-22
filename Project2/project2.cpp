@@ -260,7 +260,7 @@ template <class DT>
 void GraphDB<DT>::setNode(Node<DT>& newNode) {
     int newNodeNum = newNode.getNodeNumber();
     string newNodeInfo = newNode.getNodeInfo();
-    DT nodeYear = newNode.getYearCreated();
+    int nodeYear = newNode.getYearCreated();
     string nodeLocation = newNode.getLocation;
     // Set to Node at newNodeNum
     myNodes[newNodeNum].setNodeNumber[newNodeNum];
@@ -275,13 +275,17 @@ int main()
     // you can start with the same main function from project 1
     int numNodes;
     int maxEdges;
+    int nodeNum;
+    string nodeInfo;
+    int year;
+    string nodeLocation;
 
     cin >> numNodes >> maxEdges;
 
     cout << "numNodes: " << numNodes << endl;
     cout << "maxEdges: " << maxEdges << endl;
 
-    Node<int>* test = new Node<int>();
+    /*Node<int>* test = new Node<int>();
 
     int nodeNum = 0;
     string nodeInfo = "Harry";
@@ -291,7 +295,22 @@ int main()
     test->setNodeNumber(nodeNum);
     test->setNodeInfo(nodeInfo, year, nodeLocation);
 
-    test->display();
+    test->display();*/
+
+    GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
+
+    for (int i = 0; i < numNodes; i++) {
+        // Read in node number and node info
+        cin >> nodeNum >> nodeInfo >> year >> nodeLocation;
+        // Create new node object
+        Node<int>* addNode = new Node<int>();
+        // Set the node number and info
+        addNode->setNodeNumber(nodeNum);
+        addNode->setNodeInfo(nodeInfo, year, nodeLocation);
+        // Set the node into the database
+        // masterGraph->setNode(*addNode);
+    }
+
 
 
     return 0;
