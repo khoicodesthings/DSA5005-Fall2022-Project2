@@ -196,7 +196,11 @@ void Edge<DT>::setYearsKnown(DT newYear) {
 
 template <class DT>
 void Edge<DT>::display() {
-    cout << u->getNodeInfo() << " - " << v->getNodeInfo() << " " << getEdgeInfo() << ", " << yearsKnown << endl;
+    string nodeUInfo = u->getNodeInfo();
+    string nodeVInfo = v->getNodeInfo();
+    string displayEdgeInfo = getEdgeInfo();
+    int yearsKnown = getYearsKnown();
+    cout << nodeUInfo << " - " << nodeVInfo << " " << displayEdgeInfo << ", " << yearsKnown << endl;
 }
 
 template <class DT>
@@ -275,17 +279,17 @@ int main()
     // you can start with the same main function from project 1
     int numNodes;
     int maxEdges;
-    int nodeNum;
-    string nodeInfo;
-    int year;
-    string nodeLocation;
+    //int nodeNum;
+    //string nodeInfo;
+    //int year;
+    //string nodeLocation;
 
     cin >> numNodes >> maxEdges;
 
     cout << "numNodes: " << numNodes << endl;
     cout << "maxEdges: " << maxEdges << endl;
 
-    /*Node<int>* test = new Node<int>();
+    Node<int>* test = new Node<int>();
 
     int nodeNum = 0;
     string nodeInfo = "Harry";
@@ -295,21 +299,40 @@ int main()
     test->setNodeNumber(nodeNum);
     test->setNodeInfo(nodeInfo, year, nodeLocation);
 
-    test->display();*/
+    test->display();
 
-    GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
+    Node<int>* test1 = new Node<int>();
 
-    for (int i = 0; i < numNodes; i++) {
-        // Read in node number and node info
-        cin >> nodeNum >> nodeInfo >> year >> nodeLocation;
-        // Create new node object
-        Node<int>* addNode = new Node<int>();
-        // Set the node number and info
-        addNode->setNodeNumber(nodeNum);
-        addNode->setNodeInfo(nodeInfo, year, nodeLocation);
-        // Set the node into the database
-        // masterGraph->setNode(*addNode);
-    }
+    int test1Num = 1;
+    string test1Info = "Ron";
+    string test1Location = "Liverpool";
+    int test1year = 10071995;
+
+    test1->setNodeNumber(test1Num);
+    test1->setNodeInfo(test1Info, test1year, test1Location);
+
+    test1->display();
+
+    Edge<int>* testEdge = new Edge<int>();
+    testEdge->setu(test);
+    testEdge->setv(test1);
+    testEdge->setEdgeInfo("friend", 4);
+
+    //testEdge->display();
+
+    //GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
+
+    //for (int i = 0; i < numNodes; i++) {
+    //    // Read in node number and node info
+    //    cin >> nodeNum >> nodeInfo >> year >> nodeLocation;
+    //    // Create new node object
+    //    Node<int>* addNode = new Node<int>();
+    //    // Set the node number and info
+    //    addNode->setNodeNumber(nodeNum);
+    //    addNode->setNodeInfo(nodeInfo, year, nodeLocation);
+    //    // Set the node into the database
+    //    // masterGraph->setNode(*addNode);
+    //}
 
 
 
