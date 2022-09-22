@@ -93,7 +93,7 @@ void Node<DT>::setLocation(string newLocation) {
 
 template <class DT>
 void Node<DT>::display() {
-    cout << getNodeNumber() << ": " << getNodeInfo() << ", " << getYearCreated() << ", " << getLocation() << endl;
+    cout << nodeNumber << ": " << nodeInfo << ", " << yearCreated << ", " << location << endl;
 }
 
 // Destructor
@@ -291,7 +291,7 @@ int main()
     test->setNodeNumber(nodeNum);
     test->setNodeInfo(nodeInfo, year, nodeLocation);
 
-    //test->display();
+    test->display();
 
 
     return 0;
