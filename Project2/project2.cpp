@@ -192,6 +192,17 @@ void Edge<DT>::setYearsKnown(DT newYear) {
     yearsKnown = newYear;
 }
 
+// display and destructor
+
+template <class DT>
+void Edge<DT>::display() {
+    cout << u->getNodeInfo() << " - " << v->getNodeInfo() << " " << getEdgeInfo() << ", " << yearsKnown;
+}
+
+template <class DT>
+Edge<DT>::~Edge() {
+    // Destructor stub
+}
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
