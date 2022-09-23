@@ -273,6 +273,41 @@ void GraphDB<DT>::setNode(Node<DT>& newNode) {
     myNodes[newNodeNum].setNodeInfo(newNodeInfo, nodeYear, nodeLocation);
 }
 
+template <class DT>
+void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
+    // Extract string info and years known
+    string newEdgeInfo = newEdge.getEdgeInfo();
+    int years = newEdge.getYearsKnown();
+    // Set to last box of myEdges array
+    myEdges[numEdges - 1].setu(&newEdge.getu());
+    myEdges[numEdges - 1].setv(&newEdge.getv());
+    myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
+}
+
+template <class DT>
+void GraphDB<DT>::setNodeInfo(int u, string newInfo) {
+    // Set the nodeInfo at node U to newInfo
+    myNodes[u].setNodeInfo(newInfo);
+}
+
+template <class DT>
+void GraphDB<DT>::setEdgeInfo(int u, int v, string newInfo) {
+    // Find the edge that connects u and v
+    // use setEdgeInfo(newInfo)
+    // Loop through the myEdges array
+    for (int i = 0; i < numEdges; ++i) {
+        // Create 2 nodes to store u and v
+        Node nodeU = myEdges[i].getu();
+        Node nodeV = myEdges[i].getv();
+        // If the u and v matches tempU and tempV, then set the newInfo into that edge
+        // and break the loop
+        if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+            myEdges[i].setEdgeInfo(newInfo);
+            break;
+        }
+    }
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main()
