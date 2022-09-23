@@ -61,7 +61,7 @@ int Node<DT>::getNodeNumber() {
 
 template <class DT>
 DT Node<DT>::getYearCreated() {
-    return getYearCreated;
+    return yearCreated;
 }
 template <class DT>
 string Node<DT>::getLocation() {
@@ -95,11 +95,12 @@ void Node<DT>::setLocation(string newLocation) {
 
 template <class DT>
 void Node<DT>::display() {
-    /*int nodeN = getNodeNumber();
+    int nodeN = getNodeNumber();
     string nodeIn = getNodeInfo();
     int yearMade = getYearCreated();
-    string place = getLocation();*/
-    cout << nodeNumber << ": " << nodeInfo << ", " << yearCreated << ", " << location << endl;
+    string place = getLocation();
+    cout << nodeN << ": " << nodeIn << ", " << yearMade << ", " << place << endl;
+    //cout << nodeNumber << ": " << nodeInfo << ", " << yearCreated << ", " << location << endl;
 }
 
 // Destructor
