@@ -326,6 +326,8 @@ int main()
     string nodeInfo;
     int year;
     string nodeLocation;
+    int u, v;
+    char command;
 
     cin >> numNodes >> maxEdges;
 
@@ -378,7 +380,44 @@ int main()
         masterGraph->setNode(*addNode);
     }
 
-
+    cin >> command;
+    while (!cin.eof) {
+        switch (command) {
+            case 'I': {
+                cin >> u >> v >> nodeInfo;
+                // Create new edge object
+                Edge<int>* newEdge = new Edge<int>();
+                // Get node U and node V from the graph database
+                Node<int>* nodeU = masterGraph->getNode(u);
+                Node<int>* nodeV = masterGraph->getNode(v);
+                // Set node U and node V into edge
+                newEdge->setu(nodeU);
+                newEdge->setv(nodeV);
+                // Set edge information
+                newEdge->setEdgeInfo(nodeInfo);
+                // Print statement
+                cout << "Inserting " << u << " " << v << ": " << nodeInfo << endl;
+                // Add edge to graph database
+                masterGraph->addEdge(*newEdge);
+                break;
+            }
+            case 'E': {
+                cin >> u >> v;
+                break;
+            }
+            case 'R': {
+                cin >> u >> v;
+                break;
+            }
+            case 'D': {
+                break;
+            }
+            case 'N': {
+                break;
+            }
+            default: cout << "Holy cow!" << endl;
+        }
+    }
 
     return 0;
 }
