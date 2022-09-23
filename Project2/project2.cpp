@@ -362,19 +362,20 @@ int main()
 
     testEdge->display();*/
 
-    //GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
+    GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
 
-    //for (int i = 0; i < numNodes; i++) {
-    //    // Read in node number and node info
-    //    cin >> nodeNum >> nodeInfo >> year >> nodeLocation;
-    //    // Create new node object
-    //    Node<int>* addNode = new Node<int>();
-    //    // Set the node number and info
-    //    addNode->setNodeNumber(nodeNum);
-    //    addNode->setNodeInfo(nodeInfo, year, nodeLocation);
-    //    // Set the node into the database
-    //    // masterGraph->setNode(*addNode);
-    //}
+    for (int i = 0; i < numNodes; i++) {
+        // Read in node number and node info
+        cin >> nodeNum >> nodeInfo >> year >> nodeLocation;
+        // Create new node object
+        Node<int>* addNode = new Node<int>();
+        // Set the node number and info
+        addNode->setNodeNumber(nodeNum);
+        addNode->setNodeInfo(nodeInfo, year, nodeLocation);
+        addNode->display();
+        // Set the node into the database
+        //masterGraph->setNode(*addNode);
+    }
 
 
 
