@@ -281,13 +281,17 @@ void GraphDB<DT>::setNode(Node<DT>& newNode) {
 
 template <class DT>
 void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
+    numEdges = numEdges + 1;
     // Extract string info and years known
     string newEdgeInfo = newEdge.getEdgeInfo();
     int years = newEdge.getYearsKnown();
+    //Node<int>* nodeU = newEdge.getu();
+    //Node<int>* nodeV = newEdge.getv();
+    //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
-    myEdges[numEdges - 1].setu(&newEdge.getu());
-    myEdges[numEdges - 1].setv(&newEdge.getv());
-    myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
+    //myEdges[numEdges - 1].setu(newEdge.getu());
+    //myEdges[numEdges - 1].setv(newEdge.getv());
+    //myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
 }
 
 template <class DT>
@@ -315,6 +319,29 @@ void GraphDB<DT>::setEdgeInfo(int u, int v, string newInfo) {
 }
 
 // getters
+
+template <class DT>
+Node<DT>* GraphDB<DT>::getNode(int nodeNum) {
+    return &myNodes[nodeNum];
+}
+
+template <class DT>
+string GraphDB<DT>::getNodeInfo(int nodeNum) {
+    return myNodes[nodeNum].getNodeInfo();
+}
+
+template <class DT>
+Edge<DT>* GraphDB<DT>::getEdgeInfo(int u, int v) {
+    for (int i = 0; i < numEdges; ++i) {
+        Edge thisEdge = myEdges[i];
+        Node nodeU = myEdges[i].getu();
+        Node nodeV = myEdges[i].getv();
+        if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+            // return would also break the loop
+            return &thisEdge;
+        }
+    }
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -387,20 +414,20 @@ int main()
         switch (command) {
             case 'I': {
                 cin >> u >> v >> nodeInfo >> knownyears;
-                //// Create new edge object
-                //Edge<int>* newEdge = new Edge<int>();
-                //// Get node U and node V from the graph database
-                //Node<int>* nodeU = masterGraph->getNode(u);
-                //Node<int>* nodeV = masterGraph->getNode(v);
-                //// Set node U and node V into edge
-                //newEdge->setu(nodeU);
-                //newEdge->setv(nodeV);
-                //// Set edge information
-                //newEdge->setEdgeInfo(nodeInfo, knownyears);
-                //// Print statement
+                // Create new edge object
+                Edge<int>* newEdge = new Edge<int>();
+                // Get node U and node V from the graph database
+                Node<int>* nodeU = masterGraph->getNode(u);
+                Node<int>* nodeV = masterGraph->getNode(v);
+                // Set node U and node V into edge
+                newEdge->setu(nodeU);
+                newEdge->setv(nodeV);
+                // Set edge information
+                newEdge->setEdgeInfo(nodeInfo, knownyears);
+                // Print statement
                 cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
-                //// Add edge to graph database
-                //masterGraph->setEdge(*newEdge);
+                // Add edge to graph database
+                masterGraph->setEdge(*newEdge);
                 break;
             }
             case 'E': {
@@ -418,6 +445,7 @@ int main()
                 break;
             }
             case 'N': {
+                cin >> u;
                 cout << "Need to add case N" << endl;
                 break;
             }
