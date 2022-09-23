@@ -50,12 +50,12 @@ Node<DT>::Node() {
 }
 
 // getters definitions
-
-string Node<string>::getNodeInfo() {
+template <class DT>
+string Node<DT>::getNodeInfo() {
     return nodeInfo;
 }
-
-int Node<int>::getNodeNumber() {
+template <class DT>
+int Node<DT>::getNodeNumber() {
     return nodeNumber;
 }
 
@@ -63,8 +63,8 @@ template <class DT>
 DT Node<DT>::getYearCreated() {
     return getYearCreated;
 }
-
-string Node<string>::getLocation() {
+template <class DT>
+string Node<DT>::getLocation() {
     return location;
 }
 
@@ -95,6 +95,10 @@ void Node<DT>::setLocation(string newLocation) {
 
 template <class DT>
 void Node<DT>::display() {
+    /*int nodeN = getNodeNumber();
+    string nodeIn = getNodeInfo();
+    int yearMade = getYearCreated();
+    string place = getLocation();*/
     cout << nodeNumber << ": " << nodeInfo << ", " << yearCreated << ", " << location << endl;
 }
 
@@ -203,6 +207,7 @@ void Edge<DT>::display() {
     string displayEdgeInfo = getEdgeInfo();
     int yearsKnown = getYearsKnown();
     cout << nodeUInfo << " - " << nodeVInfo << " " << displayEdgeInfo << ", " << yearsKnown << endl;
+    //cout << displayEdgeInfo << ", " << yearsKnown << endl;
 }
 
 template <class DT>
@@ -316,17 +321,17 @@ int main()
     // you can start with the same main function from project 1
     int numNodes;
     int maxEdges;
-    //int nodeNum;
-    //string nodeInfo;
-    //int year;
-    //string nodeLocation;
+    int nodeNum;
+    string nodeInfo;
+    int year;
+    string nodeLocation;
 
     cin >> numNodes >> maxEdges;
 
     cout << "numNodes: " << numNodes << endl;
     cout << "maxEdges: " << maxEdges << endl;
 
-    Node<int>* test = new Node<int>();
+    /*Node<int>* test = new Node<int>();
 
     int nodeNum = 0;
     string nodeInfo = "Harry";
@@ -355,7 +360,7 @@ int main()
     testEdge->setv(test1);
     testEdge->setEdgeInfo("friend", 4);
 
-    //testEdge->display();
+    testEdge->display();*/
 
     //GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
 
