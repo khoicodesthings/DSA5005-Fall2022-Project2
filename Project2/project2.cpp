@@ -273,9 +273,9 @@ void GraphDB<DT>::setNode(Node<DT>& newNode) {
     int newNodeNum = newNode.getNodeNumber();
     string newNodeInfo = newNode.getNodeInfo();
     int nodeYear = newNode.getYearCreated();
-    string nodeLocation = newNode.getLocation;
+    string nodeLocation = newNode.getLocation();
     // Set to Node at newNodeNum
-    myNodes[newNodeNum].setNodeNumber[newNodeNum];
+    myNodes[newNodeNum].setNodeNumber(newNodeNum);
     myNodes[newNodeNum].setNodeInfo(newNodeInfo, nodeYear, nodeLocation);
 }
 
@@ -375,7 +375,7 @@ int main()
         addNode->setNodeInfo(nodeInfo, year, nodeLocation);
         addNode->display();
         // Set the node into the database
-        //masterGraph->setNode(*addNode);
+        masterGraph->setNode(*addNode);
     }
 
 
