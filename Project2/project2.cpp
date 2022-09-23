@@ -45,6 +45,8 @@ template <class DT>
 Node<DT>::Node() {
     nodeNumber = -1;
     nodeInfo = "";
+    yearCreated = NULL;
+    location = "";
 }
 
 // getters definitions
