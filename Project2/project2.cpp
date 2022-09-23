@@ -314,6 +314,8 @@ void GraphDB<DT>::setEdgeInfo(int u, int v, string newInfo) {
     }
 }
 
+// getters
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main()
@@ -326,7 +328,7 @@ int main()
     string nodeInfo;
     int year;
     string nodeLocation;
-    int u, v;
+    int u, v, knownyears;
     char command;
 
     cin >> numNodes >> maxEdges;
@@ -381,42 +383,47 @@ int main()
     }
 
     cin >> command;
-    while (!cin.eof) {
+    while (!cin.eof()) {
         switch (command) {
             case 'I': {
-                cin >> u >> v >> nodeInfo;
-                // Create new edge object
-                Edge<int>* newEdge = new Edge<int>();
-                // Get node U and node V from the graph database
-                Node<int>* nodeU = masterGraph->getNode(u);
-                Node<int>* nodeV = masterGraph->getNode(v);
-                // Set node U and node V into edge
-                newEdge->setu(nodeU);
-                newEdge->setv(nodeV);
-                // Set edge information
-                newEdge->setEdgeInfo(nodeInfo);
-                // Print statement
-                cout << "Inserting " << u << " " << v << ": " << nodeInfo << endl;
-                // Add edge to graph database
-                masterGraph->addEdge(*newEdge);
+                cin >> u >> v >> nodeInfo >> knownyears;
+                //// Create new edge object
+                //Edge<int>* newEdge = new Edge<int>();
+                //// Get node U and node V from the graph database
+                //Node<int>* nodeU = masterGraph->getNode(u);
+                //Node<int>* nodeV = masterGraph->getNode(v);
+                //// Set node U and node V into edge
+                //newEdge->setu(nodeU);
+                //newEdge->setv(nodeV);
+                //// Set edge information
+                //newEdge->setEdgeInfo(nodeInfo, knownyears);
+                //// Print statement
+                cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
+                //// Add edge to graph database
+                //masterGraph->setEdge(*newEdge);
                 break;
             }
             case 'E': {
                 cin >> u >> v;
+                cout << "Need to add case E" << endl;
                 break;
             }
             case 'R': {
                 cin >> u >> v;
+                cout << "Need to add case R" << endl;
                 break;
             }
             case 'D': {
+                cout << "Need to add case D" << endl;
                 break;
             }
             case 'N': {
+                cout << "Need to add case N" << endl;
                 break;
             }
             default: cout << "Holy cow!" << endl;
         }
+        cin >> command;
     }
 
     return 0;
