@@ -247,6 +247,7 @@ public:
 
     // operations
     bool isAnEdge(int u, int v);     // is this edge existent
+    bool edgeChecker(int u, int v); // auxillary method to check 2 nodes for an edge
     void addEdge(Edge<DT>& newEdge); // add an edge
     void deleteEdge(int u, int v);   // delete the edge
     void display();                  // display the contents of the two arrays
@@ -285,12 +286,12 @@ void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
     // Extract string info and years known
     string newEdgeInfo = newEdge.getEdgeInfo();
     int years = newEdge.getYearsKnown();
-    //Node<int>* nodeU = newEdge.getu();
-    //Node<int>* nodeV = newEdge.getv();
+    //Node<int>* nodeU = &newEdge.getu();
+    //Node<int>* nodeV = &newEdge.getv();
     //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
-    //myEdges[numEdges - 1].setu(newEdge.getu());
-    //myEdges[numEdges - 1].setv(newEdge.getv());
+    //myEdges[numEdges - 1].setu(&newEdge.getu());
+    //myEdges[numEdges - 1].setv(&newEdge.getv());
     //myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
 }
 
@@ -341,6 +342,53 @@ Edge<DT>* GraphDB<DT>::getEdgeInfo(int u, int v) {
             return &thisEdge;
         }
     }
+}
+
+// operations
+
+template <class DT>
+bool GraphDB<DT>::edgeChecker(int u, int v) {
+    bool isEdge = false;
+    for (int i = 0; i < numEdges; ++i) {
+        Edge thisEdge = myEdges[i];
+        Node nodeU = myEdges[i].getu();
+        Node nodeV = myEdges[i].getv();
+        // Find the edge
+        if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+            isEdge = true;
+            return isEdge;
+        }
+        else {
+            // Keep looping until you find the edge
+            continue;
+        }
+    }
+    return isEdge;
+}
+
+template <class DT>
+bool GraphDB<DT>::isAnEdge(int u, int v) {
+    bool isEdge = edgeChecker(u, v);
+    if (isEdge == true) {
+        cout << "Edge exists between " << myNodes[u].getNodeInfo() << " and " << myNodes[v].getNodeInfo() << endl;
+    }
+    else {
+        cout << "No edge exists between " << myNodes[u].getNodeInfo() << " and " << myNodes[v].getNodeInfo() << endl;
+    }
+    return isEdge;
+}
+
+template <class DT>
+void GraphDB<DT>::display() {
+    cout << "Displaying myNodes: " << endl;
+    for (int i = 0; i < numNodes; i++) {
+        myNodes[i].display();
+    }
+    /*cout << "Displaying myEdges: " << endl;
+    for (int i = 0; i < numEdges; i++) {
+        myEdges[i].display();
+    }*/
+
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -404,7 +452,7 @@ int main()
         // Set the node number and info
         addNode->setNodeNumber(nodeNum);
         addNode->setNodeInfo(nodeInfo, year, nodeLocation);
-        addNode->display();
+        //addNode->display();
         // Set the node into the database
         masterGraph->setNode(*addNode);
     }
@@ -442,6 +490,7 @@ int main()
             }
             case 'D': {
                 cout << "Need to add case D" << endl;
+                masterGraph->display();
                 break;
             }
             case 'N': {
