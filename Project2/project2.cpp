@@ -117,22 +117,22 @@ template <class DT>
 class Edge
 {
 protected:
-    Node<DT>* u;     // field to store source node pointer
-    Node<DT>* v;     // field to store destination node pointer
+    Node<DT> *u;     // field to store source node pointer
+    Node<DT> *v;     // field to store destination node pointer
     string edgeInfo; // field to store edge information
     DT yearsKnown;   // u and v - years known
 
 public:
     Edge(); // default constructor
     // getters
-    Node<DT>* getu();
-    Node<DT>* getv();
+    Node<DT> *getu();
+    Node<DT> *getv();
     string getEdgeInfo();
     DT getYearsKnown();
 
     // setters
-    void setu(Node<DT>* newu);
-    void setv(Node<DT>* newv);
+    void setu(Node<DT> *newu);
+    void setv(Node<DT> *newv);
     void setEdgeInfo(string newInfo, DT newYearsKnown); // V2: updated
     void setYearsKnown(DT newYear);                     // V2: updated
 
@@ -148,8 +148,8 @@ public:
 
 template <class DT>
 Edge<DT>::Edge() {
-    u = NULL;
-    v = NULL;
+    *u = NULL;
+    *v = NULL;
     edgeInfo = "";
     yearsKnown = NULL;
 }
@@ -157,13 +157,13 @@ Edge<DT>::Edge() {
 // getters
 
 template <class DT>
-Node<DT>* Edge<DT>::getu() {
-    return *u;
+Node<DT> Edge<DT>::*getu() {
+    return &u;
 }
 
 template <class DT>
-Node<DT>* Edge<DT>::getv() {
-    return *v;
+Node<DT> Edge<DT>::*getv() {
+    return &v;
 }
 
 template <class DT>
@@ -179,12 +179,12 @@ DT Edge<DT>::getYearsKnown() {
 // setters
 
 template <class DT>
-void Edge<DT>::setu(Node<DT>* newu) {
+void Edge<DT>::setu(Node<DT> *newu) {
     u = newu;
 }
 
 template <class DT>
-void Edge<DT>::setv(Node<DT>* newv) {
+void Edge<DT>::setv(Node<DT> *newv) {
     v = newv;
 }
 
@@ -290,9 +290,9 @@ void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
     //Node<int>* nodeV = &newEdge.getv();
     //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
-    //myEdges[numEdges - 1].setu(&newEdge.getu());
-    //myEdges[numEdges - 1].setv(&newEdge.getv());
-    //myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
+    myEdges[numEdges - 1].setu(&newEdge.getu());
+    myEdges[numEdges - 1].setv(&newEdge.getv());
+    myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
 }
 
 template <class DT>
