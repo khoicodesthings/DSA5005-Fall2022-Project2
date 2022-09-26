@@ -218,6 +218,12 @@ void Edge<DT>::display() {
 template <class DT>
 Edge<DT>::~Edge() {
     // Destructor stub
+    // reinitlize static parameters to default value
+    //edgeInfo = "";
+    //yearsKnown = NULL;
+    // deallocate memory for pointer
+    //delete u;
+    //delete v;
 }
 
 
@@ -471,13 +477,15 @@ template<class DT>
 int* GraphDB<DT>::findNeighbours(int u) {
     int counter = 0;
     int* neighborArr = new int[numNodes - 1];// = new int[100];
-    // loop through array, initilize everything to -1
+    cout << "Array size is " << numNodes - 1 << endl;
+    // loop through array, initialize everything to -1
     for (int i = 0; i < numNodes - 1; ++i) {
         neighborArr[i] = -1;
     }
     // Loop through myEdges, if there is an edge with u as one of the node
     // then add the other node of that edge to array
     for (int i = 0; i < numEdges; ++i) {
+        cout << "i is " << i << endl;
         bool isEdge = edgeChecker(u, i);
         bool isEdge2 = edgeChecker(i, u);
         //bool isEdge2 = edgeChecker(u , i);
@@ -496,6 +504,11 @@ int* GraphDB<DT>::findNeighbours(int u) {
 template <class DT>
 GraphDB<DT>::~GraphDB() {
     // Destructor stub
+    /*numNodes = nNodes;
+    numEdges = 0;
+    maxEdges = mEdges;
+    delete[] myNodes;
+    delete[] myEdges;*/
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -618,12 +631,16 @@ int main()
                 int* neighbors = masterGraph->findNeighbours(u);
                 //int getArrayLength = (sizeof(neighbors) / sizeof(int));
                 //cout << "***************Size of array: " << getArrayLength << endl;
-                cout << "***************Neighbours of " << u << ": ";
+                cout << "***************Neighbors of " << u << ": ";
                 // Print out array members that aren't "-1"
                 for (int i = 0; i < numNodes - 1; ++i) {
-                    if (neighbors[i] != -1) {
+                    if (neighbors[i] == -1) {
                         /*cout << *neighbors;
                         neighbors++;*/
+                        //cout << neighbors[i] << " ";
+                        continue;
+                    }
+                    else {
                         cout << neighbors[i] << " ";
                     }
                 }
