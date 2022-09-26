@@ -125,8 +125,8 @@ protected:
 public:
     Edge(); // default constructor
     // getters
-    Node<DT> *getu();
-    Node<DT> *getv();
+    Node<DT>* getu();
+    Node<DT>* getv();
     string getEdgeInfo();
     DT getYearsKnown();
 
@@ -148,8 +148,8 @@ public:
 
 template <class DT>
 Edge<DT>::Edge() {
-    *u = NULL;
-    *v = NULL;
+    u = NULL;
+    v = NULL;
     edgeInfo = "";
     yearsKnown = NULL;
 }
@@ -157,13 +157,13 @@ Edge<DT>::Edge() {
 // getters
 
 template <class DT>
-Node<DT> Edge<DT>::*getu() {
-    return &u;
+Node<DT>* Edge<DT>::getu() {
+    return u;
 }
 
 template <class DT>
-Node<DT> Edge<DT>::*getv() {
-    return &v;
+Node<DT>* Edge<DT>::getv() {
+    return v;
 }
 
 template <class DT>
@@ -282,11 +282,11 @@ void GraphDB<DT>::setNode(Node<DT>& newNode) {
 
 template <class DT>
 void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
-    numEdges = numEdges + 1;
+    //numEdges = numEdges + 1;
     // Extract string info and years known
     string newEdgeInfo = newEdge.getEdgeInfo();
     int years = newEdge.getYearsKnown();
-    //Node<int>* nodeU = &newEdge.getu();
+    Node<int>* nodeU = &newEdge.getu();
     //Node<int>* nodeV = &newEdge.getv();
     //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
@@ -377,6 +377,77 @@ bool GraphDB<DT>::isAnEdge(int u, int v) {
     }
     return isEdge;
 }
+
+template <class DT>
+void GraphDB<DT>::addEdge(Edge<DT>& newEdge) { // Similar to setEdge
+    // Currently, if statement not being executed
+    //cout << numEdges << maxEdges << endl;
+    numEdges = numEdges + 1;
+    if (numEdges < maxEdges) {
+        setEdge(newEdge);
+    }
+    else {
+        // Increase by 1 every time
+        int difference = 1;
+        // Update maxEdges to a larger number
+        maxEdges = maxEdges + difference;
+        // Expand array
+        Edge* tempEdge = new Edge[maxEdges];
+        for (int i = 0; i < numEdges; ++i) {
+            // Fill up the temp array
+            tempEdge[i] = myEdges[i];
+        }
+        // Delete old myEdges array
+        delete[] myEdges;
+        // Point new myEdges array to temp array
+        myEdges = tempEdge;
+        // Set the edge
+        setEdge(newEdge);
+    }
+}
+
+template <class DT>
+void GraphDB<DT>::deleteEdge(int u, int v) {
+    bool isEdge = edgeChecker(u, v);
+    if (isEdge == true) {
+        // If edge exists, delete it
+        cout << "Removing " << u << " " << v << endl;
+        // Create a temp array with the size of maxEdges
+        Edge* tempEdge = new Edge[maxEdges];
+        for (int i = 0; i < numEdges; ++i) {
+            Edge thisEdge = myEdges[i];
+            Node nodeU = myEdges[i].getu();
+            Node nodeV = myEdges[i].getv();
+            // Find the edge to be remove
+            if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+                // Fill first part of temp, skip i
+                for (int j = 0; j < i; ++j) {
+                    //cout << "Filling first half" << endl;
+                    tempEdge[j] = myEdges[j];
+                }
+                // Fill the rest of temp
+                for (int j = i + 1; j < numEdges; ++j) {
+                    // Need j - 1 for tempEdge otherwise the 
+                    // new array will have an empty spot
+                    tempEdge[j - 1] = myEdges[j];
+                }
+                break;
+            }
+        }
+        // Decrease numEdges by 1
+        numEdges = numEdges - 1;
+        // Delete old array
+        delete[] myEdges;
+        // Assign new array pointer 
+        myEdges = tempEdge;
+    }
+    else {
+        // If edge does not exist, print a statement
+        cout << "Removing " << u << " " << v << " but this edge does not exist." << endl;
+    }
+}
+
+
 
 template <class DT>
 void GraphDB<DT>::display() {
