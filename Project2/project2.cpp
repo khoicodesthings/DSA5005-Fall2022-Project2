@@ -463,6 +463,12 @@ void GraphDB<DT>::display() {
 
 }
 
+template<class DT>
+int* GraphDB<DT>::findNeighbours(int u)
+{
+    return nullptr;
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main()
