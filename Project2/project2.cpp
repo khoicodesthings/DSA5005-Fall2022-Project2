@@ -285,12 +285,12 @@ void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
     // Extract string info and years known
     string newEdgeInfo = newEdge.getEdgeInfo();
     int years = newEdge.getYearsKnown();
-    Node<int>* nodeU = &newEdge.getu();
+    //Node<int>* nodeU = &newEdge.getu();
     //Node<int>* nodeV = &newEdge.getv();
     //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
-    myEdges[numEdges - 1].setu(&newEdge.getu());
-    myEdges[numEdges - 1].setv(&newEdge.getv());
+    myEdges[numEdges - 1].setu(newEdge.getu());
+    myEdges[numEdges - 1].setv(newEdge.getv());
     myEdges[numEdges - 1].setEdgeInfo(newEdgeInfo, years);
 }
 
@@ -349,11 +349,11 @@ template <class DT>
 bool GraphDB<DT>::edgeChecker(int u, int v) {
     bool isEdge = false;
     for (int i = 0; i < numEdges; ++i) {
-        Edge thisEdge = myEdges[i];
-        Node nodeU = myEdges[i].getu();
-        Node nodeV = myEdges[i].getv();
+        Edge<DT> thisEdge = myEdges[i];
+        Node<DT>* nodeU = myEdges[i].getu();
+        Node<DT>* nodeV = myEdges[i].getv();
         // Find the edge
-        if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+        if (nodeU->getNodeNumber() == u && nodeV->getNodeNumber() == v) {
             isEdge = true;
             return isEdge;
         }
@@ -379,27 +379,32 @@ bool GraphDB<DT>::isAnEdge(int u, int v) {
 
 template <class DT>
 void GraphDB<DT>::addEdge(Edge<DT>& newEdge) {
-    numEdges = numEdges + 1;
-    if (numEdges < maxEdges) {
-        setEdge(newEdge);
-    }
-    else {
-        // Increase by 1 every time
-        int difference = 1;
-        // Update maxEdges to a larger number
-        maxEdges = maxEdges + difference;
-        // Expand array
-        Edge* tempEdge = new Edge[maxEdges];
-        for (int i = 0; i < numEdges; ++i) {
-            // Fill up the temp array
-            tempEdge[i] = myEdges[i];
+    try {
+        numEdges = numEdges + 1;
+        if (numEdges < maxEdges) {
+            setEdge(newEdge);
         }
-        // Delete old myEdges array
-        delete[] myEdges;
-        // Point new myEdges array to temp array
-        myEdges = tempEdge;
-        // Set the edge
-        setEdge(newEdge);
+        else {
+            // Increase by 1 every time
+            int difference = 1;
+            // Update maxEdges to a larger number
+            maxEdges = maxEdges + difference;
+            // Expand array
+            Edge<DT>* tempEdge = new Edge<DT>[maxEdges];
+            for (int i = 0; i < numEdges; ++i) {
+                // Fill up the temp array
+                tempEdge[i] = myEdges[i];
+            }
+            // Delete old myEdges array
+            delete[] myEdges;
+            // Point new myEdges array to temp array
+            myEdges = tempEdge;
+            // Set the edge
+            setEdge(newEdge);
+        }
+    }
+    catch (exception) {
+        cout << "Exception!!!" << endl;
     }
 }
 
@@ -408,15 +413,15 @@ void GraphDB<DT>::deleteEdge(int u, int v) {
     bool isEdge = edgeChecker(u, v);
     if (isEdge == true) {
         // If edge exists, delete it
-        cout << "Removing " << u << " " << v << endl;
+        cout << "Removing the item " << u << " " << v << endl;
         // Create a temp array with the size of maxEdges
-        Edge* tempEdge = new Edge[maxEdges];
+        Edge<DT>* tempEdge = new Edge<DT>[maxEdges];
         for (int i = 0; i < numEdges; ++i) {
-            Edge thisEdge = myEdges[i];
-            Node nodeU = myEdges[i].getu();
-            Node nodeV = myEdges[i].getv();
+            Edge<DT> thisEdge = myEdges[i];
+            Node<DT>* nodeU = myEdges[i].getu();
+            Node<DT>* nodeV = myEdges[i].getv();
             // Find the edge to be remove
-            if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
+            if (nodeU->getNodeNumber() == u && nodeV->getNodeNumber() == v) {
                 // Fill first part of temp, skip i
                 for (int j = 0; j < i; ++j) {
                     //cout << "Filling first half" << endl;
@@ -440,7 +445,8 @@ void GraphDB<DT>::deleteEdge(int u, int v) {
     }
     else {
         // If edge does not exist, print a statement
-        cout << "Removing " << u << " " << v << " but this edge does not exist." << endl;
+        cout << "Removing the item " << u << " " << v << endl;
+        cout << "Edge does not exist to be deleted" << endl;
     }
 }
 
@@ -450,10 +456,10 @@ void GraphDB<DT>::display() {
     for (int i = 0; i < numNodes; i++) {
         myNodes[i].display();
     }
-    /*cout << "Displaying myEdges: " << endl;
+    cout << "Displaying myEdges: " << endl;
     for (int i = 0; i < numEdges; i++) {
         myEdges[i].display();
-    }*/
+    }
 
 }
 
@@ -528,34 +534,45 @@ int main()
         switch (command) {
             case 'I': {
                 cin >> u >> v >> nodeInfo >> knownyears;
-                // Create new edge object
-                Edge<int>* newEdge = new Edge<int>();
-                // Get node U and node V from the graph database
-                Node<int>* nodeU = masterGraph->getNode(u);
-                Node<int>* nodeV = masterGraph->getNode(v);
-                // Set node U and node V into edge
-                newEdge->setu(nodeU);
-                newEdge->setv(nodeV);
-                // Set edge information
-                newEdge->setEdgeInfo(nodeInfo, knownyears);
-                // Print statement
-                cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
-                // Add edge to graph database
-                masterGraph->addEdge(*newEdge);
+                if (masterGraph->getNode(u)->getNodeNumber() == u && masterGraph->getNode(v)->getNodeNumber() == v) {
+                    //cout << "Nodes are part of graph" << endl;
+                    // Create new edge object
+                    Edge<int>* newEdge = new Edge<int>();
+                    // Get node U and node V from the graph database
+                    Node<int>* nodeU = masterGraph->getNode(u);
+                    Node<int>* nodeV = masterGraph->getNode(v);
+                
+                    // Set node U and node V into edge
+                    newEdge->setu(nodeU);
+                    newEdge->setv(nodeV);
+                    // Set edge information
+                    newEdge->setEdgeInfo(nodeInfo, knownyears);
+                    // Print statement
+                
+                    cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
+                    // Add edge to graph database
+                    masterGraph->addEdge(*newEdge);
+                }
+                else {
+                    cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
+                    cout << "Node not a part of the graph" << endl;
+                }
                 break;
             }
             case 'E': {
                 cin >> u >> v;
-                cout << "Need to add case E" << endl;
+                //cout << "Need to add case E" << endl;
+                masterGraph->isAnEdge(u, v);
                 break;
             }
             case 'R': {
                 cin >> u >> v;
-                cout << "Need to add case R" << endl;
+                //cout << "Need to add case R" << endl;
+                masterGraph->deleteEdge(u, v);
                 break;
             }
             case 'D': {
-                cout << "Need to add case D" << endl;
+                //cout << "Need to add case D" << endl;
                 masterGraph->display();
                 break;
             }
