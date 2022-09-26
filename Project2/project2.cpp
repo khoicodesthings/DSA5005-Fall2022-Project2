@@ -108,6 +108,10 @@ void Node<DT>::display() {
 template <class DT>
 Node<DT>::~Node() {
     // Destructor stub
+    nodeNumber = -1;
+    nodeInfo = "";
+    yearCreated = NULL;
+    location = "";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
