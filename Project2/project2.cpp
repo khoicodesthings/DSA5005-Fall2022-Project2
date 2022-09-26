@@ -466,14 +466,19 @@ void GraphDB<DT>::display() {
 template<class DT>
 int* GraphDB<DT>::findNeighbours(int u) {
     int counter = 0;
-    int* neighborArr = new int[100];// = new int[100];
+    int* neighborArr = new int[numNodes - 1];// = new int[100];
+    // loop through array, initilize everything to -1
+    for (int i = 0; i < numNodes - 1; ++i) {
+        neighborArr[i] = -1;
+    }
     // Loop through myEdges, if there is an edge with u as one of the node
     // then add the other node of that edge to array
     for (int i = 0; i < numEdges; ++i) {
         bool isEdge = edgeChecker(u, i);
+        bool isEdge2 = edgeChecker(i, u);
         //bool isEdge2 = edgeChecker(u , i);
         //|| isEdge2 == true
-        if (isEdge == true) {
+        if (isEdge == true || isEdge2 == true) {
             neighborArr[counter] = i;
             counter++;
         }
@@ -482,6 +487,11 @@ int* GraphDB<DT>::findNeighbours(int u) {
         }
     }
     return neighborArr;
+}
+
+template <class DT>
+GraphDB<DT>::~GraphDB() {
+    // Destructor stub
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -602,12 +612,16 @@ int main()
                 //cout << "Need to add case N" << endl;
                 //cout << "Neighbors of " << u << ": ";
                 int* neighbors = masterGraph->findNeighbours(u);
-                int getArrayLength = (sizeof(neighbors) / sizeof(int));
-                cout << "***************Size of array: " << getArrayLength << endl;
+                //int getArrayLength = (sizeof(neighbors) / sizeof(int));
+                //cout << "***************Size of array: " << getArrayLength << endl;
                 cout << "***************Neighbours of " << u << ": ";
-                for (int i = 0; i < getArrayLength; ++i) {
-                    cout << *neighbors;
-                    neighbors++;
+                // Print out array members that aren't "-1"
+                for (int i = 0; i < numNodes - 1; ++i) {
+                    if (neighbors[i] != -1) {
+                        /*cout << *neighbors;
+                        neighbors++;*/
+                        cout << neighbors[i] << " ";
+                    }
                 }
                 cout << endl;
 
