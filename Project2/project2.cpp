@@ -241,9 +241,9 @@ public:
     void setEdgeInfo(int u, int v, string newInfo);
 
     // getters
-    Node<DT>* getNode(int nodeNum);
+    Node<DT> *getNode(int nodeNum);
     string getNodeInfo(int nodeNum);
-    Edge<DT>* getEdgeInfo(int u, int v);
+    Edge<DT> *getEdgeInfo(int u, int v);
 
     // operations
     bool isAnEdge(int u, int v);     // is this edge existent
@@ -251,7 +251,7 @@ public:
     void addEdge(Edge<DT>& newEdge); // add an edge
     void deleteEdge(int u, int v);   // delete the edge
     void display();                  // display the contents of the two arrays
-    int* findNeighbours(int u);      // returns an integer array of neighbours' nodeNum
+    int *findNeighbours(int u);      // returns an integer array of neighbours' nodeNum
 
     ~GraphDB(); // destructor
 };
