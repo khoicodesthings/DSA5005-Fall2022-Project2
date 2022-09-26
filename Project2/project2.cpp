@@ -251,7 +251,7 @@ public:
     void addEdge(Edge<DT>& newEdge); // add an edge
     void deleteEdge(int u, int v);   // delete the edge
     void display();                  // display the contents of the two arrays
-    int *findNeighbours(int u);      // returns an integer array of neighbours' nodeNum
+    int* findNeighbours(int u);      // returns an integer array of neighbours' nodeNum
 
     ~GraphDB(); // destructor
 };
@@ -464,9 +464,20 @@ void GraphDB<DT>::display() {
 }
 
 template<class DT>
-int* GraphDB<DT>::findNeighbours(int u)
-{
-    return nullptr;
+int* GraphDB<DT>::findNeighbours(int u) {
+    int counter = 0;
+    int* neighborArr = new int[100];
+    for (int i = 0; i < numEdges; ++i) {
+        bool isEdge = edgeChecker(u, i);
+        if (isEdge == true) {
+            neighborArr[counter] = i;
+            counter = counter + 1;
+        }
+        else {
+            continue;
+        }
+    }
+    return neighborArr;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -584,7 +595,15 @@ int main()
             }
             case 'N': {
                 cin >> u;
-                cout << "Need to add case N" << endl;
+                //cout << "Need to add case N" << endl;
+                cout << "Neighbors of " << u << ": ";
+                int* neighbors = masterGraph->findNeighbours(u);
+                int getArrayLength = sizeof(neighbors) / sizeof(int);
+                for (int i = 0; i < getArrayLength; ++i) {
+                    cout << neighbors[i];
+                }
+                cout << endl;
+                //<< masterGraph->findNeighbours(u) << endl;
                 break;
             }
             default: cout << "Holy cow!" << endl;
