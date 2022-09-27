@@ -471,7 +471,9 @@ int* GraphDB<DT>::findNeighbours(int u) {
     // loop through array, initialize everything to -1
     for (int i = 0; i < numNodes - 1; ++i) {
         neighborArr[i] = -1;
+        cout << neighborArr[i] << " ";
     }
+    cout << endl;
     // Loop through myEdges, if there is an edge with u as one of the node
     // then add the other node of that edge to array
     for (int i = 0; i < numEdges; ++i) {
