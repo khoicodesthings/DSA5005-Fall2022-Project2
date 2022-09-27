@@ -477,7 +477,7 @@ void GraphDB<DT>::display() {
 template<class DT>
 int* GraphDB<DT>::findNeighbours(int u) {
     int counter = 0;
-    int* neighborArr = new int[numNodes - 1];// = new int[100];
+    int* neighborArr = new int[numNodes - 1];
     cout << "Array size is " << numNodes - 1 << endl;
     // loop through array, initialize everything to -1
     for (int i = 0; i < numNodes - 1; ++i) {
@@ -489,8 +489,6 @@ int* GraphDB<DT>::findNeighbours(int u) {
         cout << "i is " << i << endl;
         bool isEdge = edgeChecker(u, i);
         bool isEdge2 = edgeChecker(i, u);
-        //bool isEdge2 = edgeChecker(u , i);
-        //|| isEdge2 == true
         if (isEdge == true || isEdge2 == true) {
             cout << "Edge " << u << ", " << i << " exists" << endl;
             neighborArr[counter] = i;
