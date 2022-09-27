@@ -235,6 +235,7 @@ class GraphDB
 {
     // TODO: ostream operator for displaying myNodes and myEdges
     //friend ostream& operator<< (ostream& s, const <DT> arr);
+    //friend ostream& operator<< (ostream& s, const GraphDB<DT>& graph);
 protected:
     Node<DT>* myNodes; // array of nodes
     Edge<DT>* myEdges; // array of edges
@@ -510,6 +511,11 @@ GraphDB<DT>::~GraphDB() {
     delete[] myNodes;
     delete[] myEdges;*/
 }
+
+//ostream& operator<< (ostream& s, const GraphDB<int> graph) {
+//    s << "Displaying myNodes: " << endl;
+//    
+//}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
