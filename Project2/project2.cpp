@@ -587,7 +587,6 @@ int main()
         //addNode->display();
         // Set the node into the database
         masterGraph->setNode(*addNode);
-        masterGraph->getNode(i)->display();
     }
 
     cin >> command;
@@ -658,14 +657,6 @@ int main()
                     }
                 }
                 cout << endl;
-
-                /*int getArrayLength = sizeof(neighbors) / sizeof(int);
-                for (int i = 0; i < getArrayLength; ++i) {
-                    cout << neighbors[i];
-                }
-                cout << endl;*/
-                //<< masterGraph->findNeighbours(u) << endl;
-                
                 break;
             }
             default: cout << "Holy cow!" << endl;
