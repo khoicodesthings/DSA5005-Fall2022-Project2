@@ -492,10 +492,12 @@ int* GraphDB<DT>::findNeighbours(int u) {
         //bool isEdge2 = edgeChecker(u , i);
         //|| isEdge2 == true
         if (isEdge == true || isEdge2 == true) {
+            cout << "Edge " << u << ", " << i << " exists" << endl;
             neighborArr[counter] = i;
             counter++;
         }
         else {
+            cout << "Could not find any edge for i = " << i << endl;
             continue;
         }
     }
@@ -505,11 +507,11 @@ int* GraphDB<DT>::findNeighbours(int u) {
 template <class DT>
 GraphDB<DT>::~GraphDB() {
     // Destructor stub
-    /*numNodes = nNodes;
+    numNodes = 0;
     numEdges = 0;
-    maxEdges = mEdges;
+    maxEdges = 0;
     delete[] myNodes;
-    delete[] myEdges;*/
+    delete[] myEdges;
 }
 
 //ostream& operator<< (ostream& s, const GraphDB<int> graph) {
