@@ -514,6 +514,12 @@ GraphDB<DT>::~GraphDB() {
 
 //ostream& operator<< (ostream& s, const GraphDB<int> graph) {
 //    s << "Displaying myNodes: " << endl;
+//    for (int i = 0; i < numNodes; ++i) {
+//      graph->getNode(i)->display();
+//    }
+//    for (int i = 0; i < numEdges; i++) {
+//      
+//    }
 //    
 //}
 
@@ -581,6 +587,7 @@ int main()
         //addNode->display();
         // Set the node into the database
         masterGraph->setNode(*addNode);
+        masterGraph->getNode(i)->display();
     }
 
     cin >> command;
