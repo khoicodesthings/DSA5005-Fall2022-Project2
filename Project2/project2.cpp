@@ -545,37 +545,6 @@ int main()
     cout << "numNodes: " << numNodes << endl;
     cout << "maxEdges: " << maxEdges << endl;
 
-    /*Node<int>* test = new Node<int>();
-
-    int nodeNum = 0;
-    string nodeInfo = "Harry";
-    string nodeLocation = "London";
-    int year = 1051994;
-
-    test->setNodeNumber(nodeNum);
-    test->setNodeInfo(nodeInfo, year, nodeLocation);
-
-    test->display();
-
-    Node<int>* test1 = new Node<int>();
-
-    int test1Num = 1;
-    string test1Info = "Ron";
-    string test1Location = "Liverpool";
-    int test1year = 10071995;
-
-    test1->setNodeNumber(test1Num);
-    test1->setNodeInfo(test1Info, test1year, test1Location);
-
-    test1->display();
-
-    Edge<int>* testEdge = new Edge<int>();
-    testEdge->setu(test);
-    testEdge->setv(test1);
-    testEdge->setEdgeInfo("friend", 4);
-
-    testEdge->display();*/
-
     GraphDB<int>* masterGraph = new GraphDB<int>(numNodes, maxEdges);
 
     for (int i = 0; i < numNodes; i++) {
@@ -623,28 +592,22 @@ int main()
             }
             case 'E': {
                 cin >> u >> v;
-                //cout << "Need to add case E" << endl;
                 masterGraph->isAnEdge(u, v);
                 break;
             }
             case 'R': {
                 cin >> u >> v;
-                //cout << "Need to add case R" << endl;
                 masterGraph->deleteEdge(u, v);
                 break;
             }
             case 'D': {
-                //cout << "Need to add case D" << endl;
                 masterGraph->display();
                 break;
             }
             case 'N': {
+                cout << "************Checking for neighbors************" << endl;
                 cin >> u;
-                //cout << "Need to add case N" << endl;
-                //cout << "Neighbors of " << u << ": ";
                 int* neighbors = masterGraph->findNeighbours(u);
-                //int getArrayLength = (sizeof(neighbors) / sizeof(int));
-                //cout << "***************Size of array: " << getArrayLength << endl;
                 cout << "***************Neighbors of " << u << ": ";
                 // Print out array members that aren't "-1"
                 for (int i = 0; i < numNodes - 1; ++i) {
@@ -659,6 +622,7 @@ int main()
                     }
                 }
                 cout << endl;
+                delete[] neighbors;
                 break;
             }
             default: cout << "Holy cow!" << endl;
