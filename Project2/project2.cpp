@@ -235,7 +235,7 @@ class GraphDB
 {
     // TODO: ostream operator for displaying myNodes and myEdges
     //friend ostream& operator<< (ostream& s, const <DT> arr);
-    //friend ostream& operator<< (ostream& s, const GraphDB<DT>& graph);
+    friend ostream& operator<< (ostream& s, const GraphDB<DT> &graph);
 protected:
     Node<DT>* myNodes; // array of nodes
     Edge<DT>* myEdges; // array of edges
@@ -461,18 +461,7 @@ void GraphDB<DT>::deleteEdge(int u, int v) {
     }
 }
 
-template <class DT>
-void GraphDB<DT>::display() {
-    cout << "Displaying myNodes: " << endl;
-    for (int i = 0; i < numNodes; i++) {
-        myNodes[i].display();
-    }
-    cout << "Displaying myEdges: " << endl;
-    for (int i = 0; i < numEdges; i++) {
-        myEdges[i].display();
-    }
 
-}
 
 template<class DT>
 int* GraphDB<DT>::findNeighbours(int u) {
@@ -502,6 +491,8 @@ int* GraphDB<DT>::findNeighbours(int u) {
     return neighborArr;
 }
 
+
+
 template <class DT>
 GraphDB<DT>::~GraphDB() {
     // Destructor stub
@@ -512,16 +503,23 @@ GraphDB<DT>::~GraphDB() {
     delete[] myEdges;
 }
 
-//ostream& operator<< (ostream& s, const GraphDB<int> graph) {
-//    s << "Displaying myNodes: " << endl;
-//    for (int i = 0; i < numNodes; ++i) {
-//      graph->getNode(i)->display();
-//    }
-//    for (int i = 0; i < numEdges; i++) {
-//      
-//    }
-//    
-//}
+//template <class DT>
+ostream& operator<< (ostream& s, const GraphDB<int> &graph)  {
+    s << "Displaying myNodes: " << endl;
+    for (int i = 0; i < graph.numNodes; ++i) {
+        s << graph.myNodes[i].getNodeNumber() << ": " << graph.myNodes[i].getNodeInfo() << ", " << graph.myNodes[i].getYearCreated() << ", " << graph.myNodes[i].getLocation() << endl;
+    }
+    s << "Displaying myEdges: " << endl;
+    for (int i = 0; i < graph.numEdges; i++) {
+        s << graph.myEdges[i].getu()->getNodeInfo() << " - " << graph.myEdges[i].getv()->getNodeInfo() << " " << graph.myEdges[i].getEdgeInfo() << ", " << graph.myEdges[i].getYearsKnown() << endl;
+    }
+   return s;
+}
+template <class DT>
+void GraphDB<DT>::display() {
+    cout << *this << endl;
+
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
