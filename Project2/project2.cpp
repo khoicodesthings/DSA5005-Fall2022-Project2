@@ -392,32 +392,27 @@ bool GraphDB<DT>::isAnEdge(int u, int v) {
 
 template <class DT>
 void GraphDB<DT>::addEdge(Edge<DT>& newEdge) {
-    try {
-        numEdges = numEdges + 1;
-        if (numEdges < maxEdges) {
-            setEdge(newEdge);
-        }
-        else {
-            // Increase by 1 every time
-            int difference = 1;
-            // Update maxEdges to a larger number
-            maxEdges = maxEdges + difference;
-            // Expand array
-            Edge<DT>* tempEdge = new Edge<DT>[maxEdges];
-            for (int i = 0; i < numEdges; ++i) {
-                // Fill up the temp array
-                tempEdge[i] = myEdges[i];
-            }
-            // Delete old myEdges array
-            delete[] myEdges;
-            // Point new myEdges array to temp array
-            myEdges = tempEdge;
-            // Set the edge
-            setEdge(newEdge);
-        }
+    numEdges = numEdges + 1;
+    if (numEdges < maxEdges) {
+        setEdge(newEdge);
     }
-    catch (exception) {
-        cout << "Exception!!!" << endl;
+    else {
+        // Increase by 1 every time
+        int difference = 1;
+        // Update maxEdges to a larger number
+        maxEdges = maxEdges + difference;
+        // Expand array
+        Edge<DT>* tempEdge = new Edge<DT>[maxEdges];
+        for (int i = 0; i < numEdges; ++i) {
+            // Fill up the temp array
+            tempEdge[i] = myEdges[i];
+        }
+        // Delete old myEdges array
+        delete[] myEdges;
+        // Point new myEdges array to temp array
+        myEdges = tempEdge;
+        // Set the edge
+        setEdge(newEdge);
     }
 }
 
@@ -566,27 +561,35 @@ int main()
     while (!cin.eof()) {
         switch (command) {
             case 'I': {
-                cin >> u >> v >> nodeInfo >> knownyears;
-                if (masterGraph->getNode(u)->getNodeNumber() == u && masterGraph->getNode(v)->getNodeNumber() == v) {
-                    //cout << "Nodes are part of graph" << endl;
-                    // Create new edge object
-                    Edge<int>* newEdge = new Edge<int>();
-                    // Get node U and node V from the graph database
-                    Node<int>* nodeU = masterGraph->getNode(u);
-                    Node<int>* nodeV = masterGraph->getNode(v);
                 
-                    // Set node U and node V into edge
-                    newEdge->setu(nodeU);
-                    newEdge->setv(nodeV);
-                    // Set edge information
-                    newEdge->setEdgeInfo(nodeInfo, knownyears);
-                    // Print statement
-                
-                    cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
-                    // Add edge to graph database
-                    masterGraph->addEdge(*newEdge);
+                try {
+                    cin >> u >> v >> nodeInfo >> knownyears;
+                    if (masterGraph->getNode(u)->getNodeNumber() == u && masterGraph->getNode(v)->getNodeNumber() == v) {
+                        //cout << "Nodes are part of graph" << endl;
+                        // Create new edge object
+                        Edge<int>* newEdge = new Edge<int>();
+                        // Get node U and node V from the graph database
+                        Node<int>* nodeU = masterGraph->getNode(u);
+                        Node<int>* nodeV = masterGraph->getNode(v);
+
+                        // Set node U and node V into edge
+                        newEdge->setu(nodeU);
+                        newEdge->setv(nodeV);
+                        // Set edge information
+                        newEdge->setEdgeInfo(nodeInfo, knownyears);
+                        // Print statement
+
+                        cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
+                        // Add edge to graph database
+                        masterGraph->addEdge(*newEdge);
+                    }
+                    else {
+                        //cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
+                        //cout << "Node not a part of the graph" << endl;
+                        throw (u);
+                    }
                 }
-                else {
+                catch (...) {
                     cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
                     cout << "Node not a part of the graph" << endl;
                 }
