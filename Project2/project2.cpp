@@ -346,9 +346,9 @@ string GraphDB<DT>::getNodeInfo(int nodeNum) {
 template <class DT>
 Edge<DT>* GraphDB<DT>::getEdgeInfo(int u, int v) {
     for (int i = 0; i < numEdges; ++i) {
-        Edge thisEdge = myEdges[i];
-        Node nodeU = myEdges[i].getu();
-        Node nodeV = myEdges[i].getv();
+        Edge<DT> thisEdge = myEdges[i];
+        Node<DT> nodeU = myEdges[i].getu();
+        Node<DT> nodeV = myEdges[i].getv();
         if (nodeU.getNodeNumber() == u && nodeV.getNodeNumber() == v) {
             // return would also break the loop
             return &thisEdge;
