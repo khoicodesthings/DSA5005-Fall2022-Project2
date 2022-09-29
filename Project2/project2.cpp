@@ -219,11 +219,13 @@ template <class DT>
 Edge<DT>::~Edge() {
     // Destructor stub
     // reinitlize static parameters to default value
-    //edgeInfo = "";
-    //yearsKnown = NULL;
+    u = NULL;
+    v = NULL;
+    edgeInfo = "";
+    yearsKnown = NULL;
     // deallocate memory for pointer
-    //delete u;
-    //delete v;
+    delete u;
+    delete v;
 }
 
 
