@@ -423,6 +423,8 @@ void GraphDB<DT>::addEdge(Edge<DT>& newEdge) {
 
 template <class DT>
 void GraphDB<DT>::deleteEdge(int u, int v) {
+    // Currently, reallocating memory no matter
+    // if numEdges is half of maxEdges or not`
     bool isEdge = edgeChecker(u, v);
     if (isEdge == true) {
         // If edge exists, delete it
@@ -601,7 +603,8 @@ int main()
                 break;
             }
             case 'D': {
-                masterGraph->display();
+                //masterGraph->display();
+                cout << *masterGraph << endl;
                 break;
             }
             case 'N': {
