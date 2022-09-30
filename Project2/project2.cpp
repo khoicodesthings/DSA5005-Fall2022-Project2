@@ -1,6 +1,7 @@
 // Computing Structures Fall 2022
 // DSA 5005
-// Aditya Narasimhan
+// Khoi Trinh
+// 09.30.2022
 
 #include <iostream>
 #include <string>
@@ -100,7 +101,6 @@ void Node<DT>::display() {
     int yearMade = getYearCreated();
     string place = getLocation();
     cout << nodeN << ": " << nodeIn << ", " << yearMade << ", " << place << endl;
-    //cout << nodeNumber << ": " << nodeInfo << ", " << yearCreated << ", " << location << endl;
 }
 
 // Destructor
@@ -294,13 +294,9 @@ void GraphDB<DT>::setNode(Node<DT>& newNode) {
 
 template <class DT>
 void GraphDB<DT>::setEdge(Edge<DT>& newEdge) {
-    //numEdges = numEdges + 1;
     // Extract string info and years known
     string newEdgeInfo = newEdge.getEdgeInfo();
     int years = newEdge.getYearsKnown();
-    //Node<int>* nodeU = &newEdge.getu();
-    //Node<int>* nodeV = &newEdge.getv();
-    //Node<DT>* Edge<DT>::getu()
     // Set to last box of myEdges array
     myEdges[numEdges - 1].setu(newEdge.getu());
     myEdges[numEdges - 1].setv(newEdge.getv());
@@ -466,26 +462,23 @@ template<class DT>
 int* GraphDB<DT>::findNeighbours(int u) {
     int counter = 0;
     int* neighborArr = new int[numNodes - 1];
-    //cout << "Array size is " << numNodes - 1 << endl;
     // loop through array, initialize everything to -1
     for (int i = 0; i < numNodes - 1; ++i) {
         neighborArr[i] = -1;
-        //cout << neighborArr[i] << " ";
     }
     cout << endl;
     // Loop through myEdges, if there is an edge with u as one of the node
     // then add the other node of that edge to array
     for (int i = 0; i < numNodes; ++i) {
-        //cout << "i is " << i << endl;
+        // Use 2 boolean to check for an edge both ways
+        // As in, only edge u-i or i-u need to exist
         bool isEdge = edgeChecker(u, i);
         bool isEdge2 = edgeChecker(i, u);
         if (isEdge == true || isEdge2 == true) {
-            //cout << "Edge " << u << ", " << i << " exists" << endl;
             neighborArr[counter] = i;
             counter++;
         }
         else {
-            //cout << "Could not find any edge for i = " << i << endl;
             continue;
         }
     }
@@ -556,39 +549,37 @@ int main()
         // Set the node into the database
         masterGraph->setNode(*addNode);
     }
-
+    // read in a command from input file
+    // use switch case to handle each of the command
     cin >> command;
     while (!cin.eof()) {
         switch (command) {
             case 'I': {
-                
+                // try block
                 try {
                     cin >> u >> v >> nodeInfo >> knownyears;
                     if (masterGraph->getNode(u)->getNodeNumber() == u && masterGraph->getNode(v)->getNodeNumber() == v) {
-                        //cout << "Nodes are part of graph" << endl;
                         // Create new edge object
                         Edge<int>* newEdge = new Edge<int>();
                         // Get node U and node V from the graph database
                         Node<int>* nodeU = masterGraph->getNode(u);
                         Node<int>* nodeV = masterGraph->getNode(v);
-
                         // Set node U and node V into edge
                         newEdge->setu(nodeU);
                         newEdge->setv(nodeV);
                         // Set edge information
                         newEdge->setEdgeInfo(nodeInfo, knownyears);
                         // Print statement
-
                         cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
                         // Add edge to graph database
                         masterGraph->addEdge(*newEdge);
                     }
                     else {
-                        //cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
-                        //cout << "Node not a part of the graph" << endl;
+                        // throw an exception
                         throw (u);
                     }
                 }
+                // catch the exception and print the statement
                 catch (...) {
                     cout << "Inserting " << u << " " << v << ": " << nodeInfo << ", " << knownyears << endl;
                     cout << "Node not a part of the graph" << endl;
@@ -596,34 +587,34 @@ int main()
                 break;
             }
             case 'E': {
+                // Read in the 2 node number and call isAnEdge
                 cin >> u >> v;
                 masterGraph->isAnEdge(u, v);
                 break;
             }
             case 'R': {
+                // read in the 2 node number and call deleteEdge
                 cin >> u >> v;
                 masterGraph->deleteEdge(u, v);
                 break;
             }
             case 'D': {
-                //masterGraph->display();
+                // use cout instead of display method
                 cout << *masterGraph << endl;
                 break;
             }
             case 'N': {
-                //cout << "************Checking for neighbors************" << endl;
                 cin >> u;
                 int* neighbors = masterGraph->findNeighbours(u);
                 cout << "Neighbours of " << u << ": ";
                 // Print out array members that aren't "-1"
                 for (int i = 0; i < numNodes - 1; ++i) {
                     if (neighbors[i] == -1) {
-                        /*cout << *neighbors;
-                        neighbors++;*/
-                        //cout << neighbors[i] << " ";
+                        // if the element is -1, skip it
                         continue;
                     }
                     else {
+                        // otherwise, print it out
                         cout << neighbors[i] << " ";
                     }
                 }
@@ -633,6 +624,7 @@ int main()
             }
             default: cout << "Holy cow!" << endl;
         }
+        // Read in the next command
         cin >> command;
     }
 
