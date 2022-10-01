@@ -644,6 +644,7 @@ int main()
         // Read in the next command
         cin >> command;
     }
-
+    // call graph destructor
+    delete masterGraph;
     return 0;
 }
