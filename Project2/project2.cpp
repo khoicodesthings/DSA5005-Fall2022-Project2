@@ -415,7 +415,24 @@ void GraphDB<DT>::addEdge(Edge<DT>& newEdge) {
 template <class DT>
 void GraphDB<DT>::deleteEdge(int u, int v) {
     // Currently, reallocating memory no matter
-    // if numEdges is half of maxEdges or not`
+    // if numEdges is half of maxEdges or not
+
+    // reallocate memory if numEdges is half of maxEdges
+
+    if (numEdges == (maxEdges / 2)) {
+        // Create new temp array with smaller size
+        Edge<DT>* reallocateEdge = new Edge<DT>[numEdges];
+        // Deep copy bigger array over
+        for (int i = 0; i < numEdges; ++i) {
+            reallocateEdge[i] = myEdges[i];
+        }
+        // Delete big array
+        delete[] myEdges;
+        // Assign new pointer
+        myEdges = reallocateEdge;
+    }
+    
+    // Deletion of edge
     bool isEdge = edgeChecker(u, v);
     if (isEdge == true) {
         // If edge exists, delete it
